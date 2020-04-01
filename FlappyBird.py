@@ -5,16 +5,16 @@ import os
 import random
 
 # size of the game screen
-WIN_WIDTH = 600
+WIN_WIDTH = 500
 WIN_HEIGHT = 800
 
 # load images
 BIRD_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bird1.png"))),
-                                    (pygame.image.load(os.path.join("images", "bird2.png"))),
-                                    (pygame.image.load(os.path.join("images", "bird3.png")))]
-PIPE_IMG = pygame.image.load(os.path.join("images", "pipe.png"))
-BASE_IMG = pygame.image.load(os.path.join("images", "pipe.png"))
-BG_IMG = pygame.image.load(os.path.join("images", "pipe.png"))
+            pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bird2.png"))),
+            pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bird3.png")))]
+PIPE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("images", "pipe.png")))
+BASE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("images", "base.png")))
+BG_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bg.png")))
 
 class Bird:
     IMGS = BIRD_IMGS
@@ -87,3 +87,29 @@ class Bird:
 
     def get_mask(self):
         return pygame.mask.from_surface(self.img)
+
+def draw_window(win, bird):
+    win.blit(BG_IMG, (0,0))
+    bird.draw(win)
+    pygame.display.update()
+
+def main():
+    bird = Bird(200,200)
+    win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+    clock = pygame.time.Clock()
+
+    run = True
+    while run:
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+        bird.move()
+        draw_window(win,bird)
+
+    pygame.quit()
+    quit()
+
+main()
+
