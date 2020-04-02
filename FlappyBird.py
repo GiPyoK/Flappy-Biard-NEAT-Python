@@ -173,7 +173,7 @@ def draw_window(win, bird, pipes, base, score):
     base.draw(win)
     pygame.display.update()
 
-def main():
+def main(genomes, config):
     bird = Bird(230,350)
     base = Base(730)
     pipes = [Pipe(600)]
@@ -223,3 +223,22 @@ def main():
 
 main()
 
+def run(config_path):
+    # setup neat from config-feedforward.txt file
+    config = neat.config.Config(neat.DefaultGenome,
+                                neat.DefaultReproduction,
+                                neat.DefaultSpeciesSet,
+                                neat.DefaultStagnation,
+                                config_path)
+
+    population = neat.Population(config)    # set population
+    population.add_reporter(neat.StdOutReporter(True))  # add reports to population
+    stats = neat.StatisticsReporter()
+    population.add_reporter(stats)
+
+    winner = population.run(main,50)
+
+if __name__ == "__main__":
+    local_dir = os.path.dirname(__file__)
+    config_path = os.path.join(loac_dir, "config-feedforward.txt")
+    run(config_path)
