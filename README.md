@@ -2,6 +2,8 @@
 
 ![](demo.gif)
 
+(30 seconds)
+
 This is a clone of flappy bird game incorporated with [NEAT](https://neat-python.readthedocs.io/en/latest/)(NeuroEvolution of Augmenting Topologies)-Python. The position of the bird, top pipe and bottom pipe is fed to NEAT-Python to create artificial neural networks and determine when to jump. 
 
 # Built With
